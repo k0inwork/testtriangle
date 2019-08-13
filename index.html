@@ -34,7 +34,7 @@ var ctx;
 function GetPixel(x, y)
 {
     var p = ctx.getImageData(x*3, y*3, 1, 1).data; 
-    return "rgb("+ p[0]+","+ p[1]+"," +p[2])";  
+    return "rgb("+ p[0]+","+ p[1]+"," +p[2]+")";  
 }
 
 $(document).ready(function() {
