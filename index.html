@@ -36,7 +36,7 @@ function GetPixel(x, y)
     x = x * 500; y = y * 500;
     var p = ctx.getImageData(x, y, 1, 1).data; 
     rgb = "rgb("+ p[0]+","+ p[1]+"," +p[2]+")";  
-    console.log(x+":"+y+" "+rgb);
+//    console.log(x+":"+y+" "+rgb);
     return rgb;
 }
 
