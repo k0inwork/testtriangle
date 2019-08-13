@@ -55,15 +55,15 @@ $(document).ready(function() {
 
       ctx.drawImage(this, 0, 0, w, h);
 
-      var pattern = Trianglify({
+      document.pattern = Trianglify({
               width: window.innerWidth,
               height: window.innerHeight,
               cell_size : 20,
               color_function : GetPixel
      });
 
-      document.body.appendChild(pattern.canvas());
-      console.log(pattern.svg());
+      document.body.appendChild(document.pattern.svg());
+      console.log(document.pattern.svg());
     } ;
     
     });
