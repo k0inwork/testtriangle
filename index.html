@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/2.0.0/trianglify.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <style id="compiled-css" type="text/css">
+
+  </style>
+
+
+  
+</head>
+<body>
+
+
+
+  <!-- TODO: Missing CoffeeScript 2 -->
+
+  <script type="text/javascript">//<![CDATA[
+
+
+var ctx;
+
+function GetPixel(x, y)
+{
+    var p = ctx.getImageData(x*3, y*3, 1, 1).data; 
+    return "rgba("+ p[0]+","+ p[1]+"," +p[2]+","+p[3]+")";  
+}
+
+$(document).ready(function() {
+
+    var tmpImg = new Image() ;
+    tmpImg.src =   "/adorable-animal-blur-406014.jpg";
+    var canvas1 = document.createElement('canvas');
+    ctx = canvas1.getContext('2d');
+  
+    tmpImg.onload = function() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas1.width = w;
+      canvas1.height = h;
+
+      ctx.drawImage(this, 0, 0, w, h);
+
+      var pattern = Trianglify({
+              width: window.innerWidth,
+              height: window.innerHeight,
+              cell_size : 20,
+              color_function : GetPixel
+     });
+
+      document.body.appendChild(pattern.canvas()) 
+    } ;
+    
+    });
+
+
+  //]]></script>
+
+</body>
+</html>
+
+            
