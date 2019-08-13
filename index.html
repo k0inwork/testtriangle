@@ -10,7 +10,7 @@
 
 
 
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trianglify/2.0.0/trianglify.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/k0inwork/trianglify@master/dist/trianglify.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <style id="compiled-css" type="text/css">
@@ -33,7 +33,7 @@ var ctx;
 
 function GetPixel(x, y)
 {
-    x = x * 500; y = y * 500;
+    x = x * 1000; y = y * 500;
     var p = ctx.getImageData(x, y, 1, 1).data; 
     rgb = "rgb("+ p[0]+","+ p[1]+"," +p[2]+")";  
 //    console.log(x+":"+y+" "+rgb);
@@ -62,7 +62,8 @@ $(document).ready(function() {
               color_function : GetPixel
      });
 
-      document.body.appendChild(pattern.canvas()) 
+      document.body.appendChild(pattern.canvas());
+      console.log(pattern.svg());
     } ;
     
     });
