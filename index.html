@@ -22,34 +22,60 @@
 </head>
 <body>
   <form>
-  <input type="button" class="file" name="attachement" onmouseover="(this.type='file')" onmouseout="(this.type='button')" value="Choose file" id="svgchooser"/>
-  <output id='ll'></output>
-
-  <input type="submit" onclick="draw()"> Press here to see rendered dog </input>
+  <input type="file" class="file" value="Choose file" id="svgchooser"/>
+  <br/>
+<div id="svgContainer">
+  <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px">
+  </svg>
+</div> 
+  <br/>
+  <button type="button" id="drawbutton" onclick="draw()" disabled> Press here to see rendered dog </button>
   </form>
 
   <script type="text/javascript">//<![CDATA[
 
-document.getElementById('svgchooser').addEventListener('change', handleFileSelect, false);
 
-handleFIleSelect = function(evt) {
+handleFileSelect = function(evt) {
    
-   f = evt.target.attachment;
+   f = evt.target.files[0];
 
-   var reader = new FileReader$a
-();
-         reader.onload = (function(theFile) {
+   var reader = new FileReader();
+
+   reader.onload = (function(theFile) {
         return function(e) {
           // Render thumbnail.
-          var ll = document.getElementById('ll');
-          ll.innerHTML = ['<span>', escape(theFile.name), '</span>'].join('');
+          $('#drawbutton').removeAttr('disabled');
+   
+      //    console.log(reader.result);          
+          d = new DOMParser()
+          xml = d.parseFromString( reader.result, "image/svg+xml");
+          console.log(xml);
+
+	  coords = []
+          $.each(xml.children[0].children, function(i, t) {
+               console.log(t.localName);
+               if (t.localName == "polygon") {
+                   $.each( t.points, function(a,b) { coords.push({x:b.x,y:b.y})});
+               } else 
+               if (t.localName == "rect") {
+                   x = t.x.baseVal.value;
+                   y = t.y.baseVal.value;
+                   h = t.height.baseVal.value;
+                   w = t.width.baseVal.value;
+                   coords.push({x:x,y:y}); coords.push({x:x+w, y:y}); coords.push({x:x,y:y+h}); coords.push({x:x+w, y:y+h});
+               }
+           console.log(coords);
+          });
+          document.getElementById("svgContainer") .appendChild(xml.children[0]);
+   
         };
       })(f);
 
       // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
+      reader.readAsText(f);
 
 }
+document.getElementById('svgchooser').addEventListener('change', handleFileSelect, false);
 
 var ctx;
 
