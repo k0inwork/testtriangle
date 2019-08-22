@@ -21,10 +21,35 @@
   
 </head>
 <body>
-  <button type="submit" onclick="draw()"> Press here to see rendered dog </button>
+  <form>
+  <input type="button" class="file" name="attachement" onmouseover="(this.type='file')" onmouseout="(this.type='button')" value="Choose file" id="svgchooser"/>
+  <output id='ll'></output>
+
+  <input type="submit" onclick="draw()"> Press here to see rendered dog </input>
+  </form>
 
   <script type="text/javascript">//<![CDATA[
 
+document.getElementById('file').addEventListener('change', handleFileSelect, false);
+
+handleFIleSelect = function(evt) {
+   
+   f = evt.target.attachment;
+
+   var reader = new FileReader$a
+();
+         reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var ll = document.getElementById('ll');
+          ll.innerHTML = ['<span>', escape(theFile.name), '</span>'].join('');
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+
+}
 
 var ctx;
 
@@ -37,7 +62,6 @@ function GetPixel(x, y)
     return rgb;
 }
 
-//$(document).ready(function() {
 draw = function() {
 
     var tmpImg = new Image() ;
