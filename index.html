@@ -21,10 +21,7 @@
   
 </head>
 <body>
-
-
-
-  <!-- TODO: Missing CoffeeScript 2 -->
+  <button value="Draw!" type="submit" onclick="draw()"/>
 
   <script type="text/javascript">//<![CDATA[
 
@@ -40,7 +37,8 @@ function GetPixel(x, y)
     return rgb;
 }
 
-$(document).ready(function() {
+//$(document).ready(function() {
+draw = function() {
 
     var tmpImg = new Image() ;
     tmpImg.src =   "/testtriangle/adorable-animal-blur-406014.jpg";
@@ -60,6 +58,7 @@ $(document).ready(function() {
               height: window.innerHeight,
               cell_size : 20,
               color_function : GetPixel
+     //         points : points_array
      });
 
       document.body.appendChild(document.pattern.svg());
