@@ -55,17 +55,18 @@ handleFileSelect = function(evt) {
           $.each(xml.children[0].children, function(i, t) {
                console.log(t.localName);
                if (t.localName == "polygon") {
-                   $.each( t.points, function(a,b) { coords.push({x:b.x,y:b.y})});
+                   $.each( t.points, function(a,b) { coords.push([b.x,b.y])});
                } else 
                if (t.localName == "rect") {
                    x = t.x.baseVal.value;
                    y = t.y.baseVal.value;
                    h = t.height.baseVal.value;
                    w = t.width.baseVal.value;
-                   coords.push({x:x,y:y}); coords.push({x:x+w, y:y}); coords.push({x:x,y:y+h}); coords.push({x:x+w, y:y+h});
+                   coords.push([x,y]); coords.push([x+w, y]); coords.push([x,y+h]); coords.push([x+w, y+h]);
                }
-           console.log(coords);
           });
+
+          console.log(coords);
           document.getElementById("svgContainer") .appendChild(xml.children[0]);
    
         };
