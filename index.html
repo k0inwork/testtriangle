@@ -35,6 +35,8 @@
   <script type="text/javascript">//<![CDATA[
 
 
+var coords = []
+
 handleFileSelect = function(evt) {
    
    f = evt.target.files[0];
@@ -49,9 +51,9 @@ handleFileSelect = function(evt) {
       //    console.log(reader.result);          
           d = new DOMParser()
           xml = d.parseFromString( reader.result, "image/svg+xml");
-          console.log(xml);
+          
+          coords = []
 
-	  coords = []
           $.each(xml.children[0].children, function(i, t) {
                console.log(t.localName);
                if (t.localName == "polygon") {
@@ -108,8 +110,8 @@ draw = function() {
               width: window.innerWidth,
               height: window.innerHeight,
               cell_size : 20,
-              color_function : GetPixel
-     //         points : points_array
+              color_function : GetPixel,
+              points : coords
      });
 
       document.body.appendChild(document.pattern.svg());
